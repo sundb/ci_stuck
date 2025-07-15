@@ -1,0 +1,46 @@
+name: TCL Quick Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y tcl tcl-dev build-essential
+        
+    - name: Verify TCL installation
+      run: |
+        tclsh --version
+        which tclsh
+        
+    - name: Build epoll server
+      run: |
+        make clean
+        make epoll_server
+        ls -la epoll_server
+        
+    - name: Make epoll_server executable
+      run: chmod +x epoll_server
+      
+    - name: Run quick test
+      run: |
+        tclsh ./quick_test.tcl
+        
+    - name: Cleanup
+      if: always()
+      run: |
+        # Kill any remaining server processes
+        pkill -f epoll_server || true
+        make clean || true
