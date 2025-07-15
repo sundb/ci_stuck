@@ -4,7 +4,7 @@
 
 set SERVER_HOST "127.0.0.1"
 set SERVER_PORT 6379
-set NUM_REQUESTS 300000
+set NUM_REQUESTS 3000000
 
 proc log_msg {msg} {
     puts "[clock format [clock seconds] -format {%H:%M:%S}] $msg"
