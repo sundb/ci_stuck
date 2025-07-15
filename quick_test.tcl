@@ -86,7 +86,6 @@ proc run_quick_test {} {
                 # puts $responses_received
                 set response [string range $response 3 end]  ;# Remove "ok\r\n" from front
                 
-                puts $responses_received
                 if {$responses_received >= $NUM_REQUESTS} {
                     break
                 }
