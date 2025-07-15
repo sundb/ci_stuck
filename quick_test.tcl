@@ -4,7 +4,7 @@
 
 set SERVER_HOST "127.0.0.1"
 set SERVER_PORT 6379
-set NUM_REQUESTS 3000000
+set NUM_REQUESTS 500000
 
 proc log_msg {msg} {
     puts "[clock format [clock seconds] -format {%H:%M:%S}] $msg"
@@ -49,7 +49,7 @@ proc run_quick_test {} {
     # Phase 1: Send all requests
     log_msg "Phase 1: Sending $NUM_REQUESTS requests..."
     set send_start [clock milliseconds]
-    set message "test\n"
+    set message "[string repeat A 100]\n"
     
     for {set i 0} {$i < $NUM_REQUESTS} {incr i} {
         if {[catch {puts -nonewline $sock $message} err]} {
