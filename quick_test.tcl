@@ -83,7 +83,7 @@ proc run_quick_test {} {
             # set response "ok\r\n"
             while {[string first "ok\n" $response] == 0} {
                 incr responses_received
-                # puts $responses_received
+                puts $responses_received
                 set response [string range $response 3 end]  ;# Remove "ok\r\n" from front
                 
                 if {$responses_received >= $NUM_REQUESTS} {
